@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${book.getBook_name()}">Book</title>
+</head>
+<body>
+<p th:text="${book.getBook_name()}"></p>
+<p th:text="${book.getAuthor_name()}"></p>
+<p th:text="${book.getYear_of_writing()}"></p>
+
+<a th:href="books/updateBook" text="Обновить информацию о книге"></a>
+<form th:method="DELETE" th:action="@{books/{id}(id=${book.getId()})}" th:odject="${book}">
+    <input type="submit" value="Удалить книгу из библиотеки">
+</form>
+</body>
+</html>
