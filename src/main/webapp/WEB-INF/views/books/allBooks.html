@@ -1,10 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
+    <meta charset="UTF-8">
+    <title>Библиотека</title>
 </head>
 <body>
-$END$
+<div th:each="book : ${books}">
+    <a th:href="@{/books/{id}(id=${book.getId()})}"
+       th:text="${book.getBook_name() + ',' + book.getAuthor_name() + ',' + book.getYear_of_writing()}">position</a>
+</div>
+<br/>
+<hr/>
+<a href="books/createBook">Добавить книгу в библиотеку</a>
 </body>
 </html>

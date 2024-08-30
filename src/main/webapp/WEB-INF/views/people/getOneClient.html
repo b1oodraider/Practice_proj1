@@ -1,10 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
+    <meta charset="UTF-8">
+    <title>Данные клиента</title>
 </head>
 <body>
-$END$
+<p th:text="${person.getFio() + ',' + person.getYear()}"></p>
+<hr th:unless="${books.isEmpty()}"/>
+<label th:unless="${books.isEmpty()}" for="booksGet">Книги:</label>
+<div th:unless="${books.isEmpty()}" th:each="book : ${books}" id="booksGet">
+    <a th:text="${book.getBook_name() + ',' + book.getAuthor_name() + ',' + book.getYear_of_writing}">titles</a>
+</div>
+<a th:if="${books.isEmpty()}">Человек пока не взял ни одной книги</a>
+<hr/>
+<a th:href="@{{id}/editClient(id = ${person.getId()})}">Редактировать данные клиента</a>
+<br/>
+<form th:method="DELETE" th:action="@{/people/{id}(id=${person.getId()})}">
+    <input type="submit" value="Удалить">
+</form>
+
+
 </body>
 </html>

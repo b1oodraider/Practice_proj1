@@ -5,12 +5,26 @@
     <title th:text="${book.getBook_name()}">Book</title>
 </head>
 <body>
-<p th:text="${book.getBook_name()}"></p>
-<p th:text="${book.getAuthor_name()}"></p>
-<p th:text="${book.getYear_of_writing()}"></p>
+<p th:text="${book.getBook_name()+ ',' + book.getAuthor_name() + ',' + book.getYear_of_writing()}"></p>
 
-<a th:href="books/updateBook" text="Обновить информацию о книге"></a>
-<form th:method="DELETE" th:action="@{books/{id}(id=${book.getId()})}" th:odject="${book}">
+<form th:if="${book.getClient_id() == 1}" th:method="PATCH" th:action="@{/books/{id}/add(id=${book.getId()})}" th:object="${book}">
+    <label for="client-select">Select client</label>
+    <select id="client-select" th:field="*{client_id}">
+        <option th:each="person : ${people}" th:value="${person.getId()}" th:text="${person.getFio()}"></option>
+    </select>
+    <input type="submit" value="Назначить">
+</form>
+
+<a th:unless="${book.getClient_id() == 1}" th:text="${'Книга сейчас у: ' + people.get(book.getClient_id() - 1).getFio()}"></a>
+<form th:unless="${book.getClient_id() == 1}" th:method="PATCH" th:action="@{/books/{id}/deleteClient(id=${book.getId()})}" th:object="${book}">
+    <input type="submit" value="Освободить книгу">
+</form>
+
+
+<br/>
+<hr/>
+<a th:href="@{{id}/updateBook(id=${book.getId()})}">Обновить информацию о книге</a>
+<form th:method="DELETE" th:action="@{{id}(id=${book.getId()})}" th:odject="${book}">
     <input type="submit" value="Удалить книгу из библиотеки">
 </form>
 </body>

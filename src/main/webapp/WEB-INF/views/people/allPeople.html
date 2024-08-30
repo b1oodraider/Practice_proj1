@@ -1,10 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
+    <meta charset="UTF-8">
+    <title>Show all people</title>
 </head>
 <body>
-$END$
+<div th:each="person : ${people}">
+    <a th:href="@{people/{id}(id = ${person.getId()})}" th:text = "${person.getFio() + ',' + person.getYear()}">user</a>
+</div>
+<br/>
+<hr/>
+
+<a href="people/createClient">Добавить нового клиента</a>
+
 </body>
 </html>
